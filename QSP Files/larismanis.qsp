@@ -1,0 +1,131 @@
+{
+    "name": "LarisManis",
+    "base_url": [
+        "https://www.larismanis.com",
+        "https://larismanis.com"
+     ],
+    "update_date": "2017-03-19",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": ".mf-product-thumbnail",
+            "url": {
+                "selector": "a",
+                "read": "attr:href"
+        },
+            "name": {
+                "selector": ".mf-product-details",
+                "read": "content"
+            },
+            "thumbnail": {
+                "selector": "[itemprop='image']",
+                "read": "attr:src"
+            },
+            "__alternate": [
+                {
+                   "url": {
+                        "selector": ".product-title-column > a",
+                        "read" : "attr:href" 
+                        }
+                    }
+        ]
+        },
+        "detail": {
+            "name": {
+                "selector": ".product_title",
+                "read": "content"
+            },
+            "price": {
+                "selector": ".summary > .price > span",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ",",
+                        "span",
+                        " ",
+                        "class=",
+                        "woocommerce-Price-currencySymbol",
+                        "\"",
+                        "Rp",
+                        ".00",
+                        "<s>",
+                        "/",
+                        "<>"
+                    ]
+                }
+            },
+            "weight": {
+                "selector": ".detail_table > tr:eq(3) > td:eq(1)",
+                "read" : "content",
+                "output_filter" : {
+                    "force_value" : [
+                        "0"
+                    ]
+                }
+            },
+            "description": {
+                "selector": ".woocommerce-Tabs-panel > p:eq(1)",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+               "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": ".woocommerce-product-gallery__wrapper > div > a",
+                "read": "attr:href"   
+            },
+            "cat_1": {
+                "selector": ".posted_in > a",
+                "read": "content"
+            },
+            "cat_2": {
+                "selector": ".c_2545b_345 > span",
+                "read": "content"
+            },
+            "cat_3": {
+                "selector": ".c_2545b_420 > span",
+                "read": "content"
+            },
+            "sold": {
+                "selector": ".c-deflist__value:eq(1)",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".c-deflist__value:eq(2)",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "list": {
+                        "description": {
+                "selector": ".woocommerce-Tabs-panel > ul",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                            }
+                        }                                      
+                    }
+                }
+            ]
+        }
+    }
+}

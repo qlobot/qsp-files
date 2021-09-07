@@ -1,0 +1,131 @@
+{
+  "name": "mbizmarket",
+  "base_url": [
+    "https://www.mbizmarket.co.id/catalog/search"
+  ],        
+  "update_date": "2020-01-04",
+  "author": "QloBOT Dev Team",
+  "author_url": "https://qlobot.com",
+  "patterns": {
+    "list": {
+      "pagination_url_param": "page=[page]",
+      "selector": ".col-md-3.p-1",
+      "url": {
+        "selector": "a",
+        "read": "attr:href",
+        "output_filter": {
+          "start_with": "https://www.mbizmarket.co.id/catalog/"
+        }
+      },
+      "name": {
+        "selector": ".card-body > .card-title",
+        "read": "attr:content"
+      },
+      "thumbnail": {
+        "selector": ".img-wrapper.p-2 > img",
+        "read": "attr:src"
+      }
+    },
+    "detail": {
+      "name": {
+        "selector": ".product-title",
+        "read": "content"
+      },
+      "price": {
+        "selector": ".table-produk-detail > tr > td > .price",
+        "read": "content",
+        "output_filter": {
+          "clear_text": [
+            ".",
+            "Rp",
+            " "
+          ]
+        }
+      },
+      "weight": {
+        "selector": ".col-md-5:eq(1) > .table.table-striped > tbody > tr:eq(0) > td:eq(1)",
+        "read": "content",
+        "temp_type_data": "float",
+        "output_filter": {
+          "clear_text": [
+            " ",
+            "kilogram",
+            "gram",
+            "Kg"
+          ]
+        },
+        "output_condition": {
+          "fold": {
+            " Gr": 1,
+            " Kg": 1000
+          }
+        }
+      },
+      "description": {
+        "selector": ".tab-pane",
+        "read": "content",
+        "output_filter": {
+          "replace": {
+            "<br/>": "\n"
+          },
+          "remove_tags": true
+        }
+      },
+      "condition": {
+        "force_value": "Baru"
+      },
+      "thumbnails": {
+        "selector": ".big-image-product > img",
+        "read": "attr:src"
+      },
+      "cat_1": {
+        "selector": ".breadcrumb > .breadcrumb-item:eq(1) > a",
+        "index": 0,
+        "read": "content"
+      },
+      "cat_2": {
+        "selector": ".breadcrumb > .breadcrumb-item:eq(2) > a",
+        "index": 0,
+        "read": "content"
+      },
+      "cat_3": {
+        "selector": ".breadcrumb > .breadcrumb-item:eq(3) > a",
+        "index": 0,
+        "read": "content"
+      },
+      "sold": {
+        "selector": ".page-title > ul > li:eq(3) > a",
+        "read": "content"
+      },
+      "views": {
+        "selector": ".page-title > ul > li:eq(4) > a",
+        "read": "content"
+      },
+      "rating": {
+        "selector": ".c-product-rating__value",
+        "read": "content"
+      },
+      "rating_by": {
+        "selector": ".c-product-rating__count span",
+        "read": "content"
+      },
+      "__alternate": [
+        {
+          "patterns": {
+            "list": {
+              "pagination_url_param": "page=[page]",
+              "selector": ".col-md-3.p-1",
+              "url": {
+                "selector": "a",
+                "read": "attr:href",
+                "output_filter": {
+                  "start_with": "https://www.mbizmarket.co.id/catalog/"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

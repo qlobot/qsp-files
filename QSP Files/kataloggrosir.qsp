@@ -1,0 +1,163 @@
+{
+    "name": "Katalog Grosir",
+    "base_url": [
+        "https://www.kataloggrosir.com/",
+        "https://kataloggrosir.com/"
+    ],
+    "update_date": "2017-03-19",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": ".item",
+            "url": {
+                "selector": ".image > a",
+                "read": "attr:href",
+                "output_filter": {
+                    "start_with": "https://www.kataloggrosir.com/"
+                }
+            },
+            "name": {
+                "selector": ".image > a>img",
+                "read": "attr:title"
+            },
+            "thumbnail": {
+                "selector": ".product-media img",
+                "read": "attr:data-src"
+            }
+        },
+        "detail": {
+            "name": {
+                "selector": "[itemprop='name']",
+                "read": "content"
+            },
+            "price": {
+                "selector": "#product_price",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ".",
+                        ","
+                    ]
+                }
+            },
+            "weight": {
+                "selector": ".product-properties:eq(0) > tr:eq(1) > td",
+                "read": "content",
+                "temp_type_data": "float",
+                "output_filter": {
+                    "clear_text": [
+                        " ",
+                        "Berat:",
+                        "kilogram",
+                        "gram"
+                    ]
+                },
+                "output_condition": {
+                    "fold": {
+                        " gram": 1,
+                        " kilogram": 1000
+                    }
+                }
+            },
+            "description": {
+                "selector": "[itemprop='description']",
+                "read": "attr:content",
+                "output_filter": {
+                    "replace": {
+                        "<br />": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+                "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": ".dpimages-icons-box > a",
+                "read": "attr:href"
+            },
+            "cat_1": {
+                "selector": "[itemtype='http://data-vocabulary.org/Breadcrumb']:eq(1) > [itemprop='title']",
+                "read": "attr:content"
+            },
+            "cat_2": {
+               "selector": "[itemtype='http://data-vocabulary.org/Breadcrumb']:eq(2) > [itemprop='title']",
+                "read": "attr:content"
+            },
+            "cat_3": {
+                "selector": "[itemtype='http://data-vocabulary.org/Breadcrumb']:eq(3) > [itemprop='title']",
+                "read": "attr:content"
+            },
+            "sold": {
+                "selector": ".c-deflist__value:eq(1)",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".c-deflist__value:eq(2)",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "description": {
+                        "selector": ".product-detailed__massive-text",
+                        "index": 0,
+                        "root": true,
+                        "read": "content",
+                        "output_filter": {
+                            "replace": {
+                                "<br/>": "\n"
+                            },
+                            "remove_tags": true
+                        }
+                    },
+                    "thumbnails": {
+                        "root": true,
+                        "selector": ".js-product-image-gallery-images a",
+                        "read": "attr:href"
+                    }
+                },
+                {
+                    "NOTE": "BL New Fucking Interface",
+                    "description": {
+                        "selector": ".qa-pd-description",
+                        "read": "content",
+                        "output_filter": {
+                            "replace": {
+                                "<br/>": "\n"
+                            },
+                            "remove_tags": true
+                        }
+                    },
+                    "weight": {
+                        "selector": ".qa-pd-weight-value",
+                        "read": "content",
+                        "temp_type_data": "float",
+                        "output_filter": {
+                            "clear_text": [
+                                " ",
+                                "kilogram",
+                                "gram"
+                            ]
+                        },
+                        "output_condition": {
+                            "fold": {
+                                " gram": 1,
+                                " kilogram": 1000
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

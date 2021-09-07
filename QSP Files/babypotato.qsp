@@ -1,0 +1,140 @@
+{
+    "name": "babypotato-id",
+    "base_url": [
+        "https://babypotato-id.myolsera.com/",
+        "https://babypotato-id.myolsera.com/catalog"
+     ],
+    "update_date": "2017-03-19",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": ".product-content",
+            "url": {
+                "selector": ".name-block > a",
+                "read": "attr:href"
+        },
+            "name": {
+                "selector": ".name-block > a",
+                "read": "content"
+            },
+            "thumbnail": {
+                "selector": "#img-block",
+                "read": "attr:src"
+            },
+            "__alternate": [
+                {
+                   "url": {
+                        "selector": ".product-title-column > a",
+                        "read" : "attr:href" 
+                        }
+                    }
+        ]
+        },
+        "detail": {
+            "name": {
+                "selector": ".product-title",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        "class=",
+                        "<small",
+                        "sku-label",
+                        "\"",
+                        "/",
+                        ">"
+                    ]
+                }
+            },
+            "price": {
+                "selector": ".olsera-product-price > .newprice",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ",",
+                        "span",
+                        " ",
+                        "IDR",
+                        "woocommerce-Price-currencySymbol",
+                        "\"",
+                        "Rp",
+                        ".",
+                        "/",
+                        "<>"
+                    ]
+                }
+            },
+            "weight": {
+                "selector": ".detail_table > tr:eq(3) > td:eq(1)",
+                "read" : "content",
+                "output_filter" : {
+                    "force_value" : [
+                        "0"
+                    ]
+                }
+            },
+            "description": {
+                "selector": ".description > .des-block",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+               "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": ".col-md-6 > .olsera-product-gallery > .sp-wrap > a > img",
+                "read": "attr:src"   
+            },
+            "cat_1": {
+                "selector": ".breadcrumb > li:eq(1) > a",
+                "read": "content"
+            },
+            "cat_2": {
+                "selector": ".breadcrumb > li:eq(2)",
+                "read": "content"
+            },
+            "cat_3": {
+                "selector": ".breadcrumb > li:eq(3)",
+                "read": "content"
+            },
+            "sold": {
+                "selector": ".c-deflist__value:eq(1)",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".c-deflist__value:eq(2)",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "list": {
+                        "description": {
+                "selector": ".woocommerce-Tabs-panel > ul",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                            }
+                        }                                      
+                    }
+                }
+            ]
+        }
+    }
+}

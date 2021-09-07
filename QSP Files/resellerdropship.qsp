@@ -1,0 +1,127 @@
+{
+    "name": "resellerdropship",
+    "base_url": [
+        "https://resellerdropship.com/",
+        "https://www.resellerdropship.com/",
+        "http://resellerdropship.com"
+
+    ],
+    "update_date": "2019-12-22",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": ".media-body",
+            "url": {
+                "selector": "h6 > a",
+                "read": "attr:href"
+        },
+            "name": {
+                "selector": "[itemprop='name'] > a",
+                "read": "attr:href"
+            },
+            "thumbnail": {
+                "selector": "",
+                "read": "attr:src"
+            }
+        },
+        "detail": {
+            "name": {
+                "selector": ".panel-title > span",
+                "read": "content"
+            },
+            "price": {
+                "selector": "[itemprop='price']",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ".",
+                        "Rp",
+                        " "
+                    ]
+                }
+            },
+            "weight": {
+            	"selector": "span.text-default",
+                "read": "content",
+                "temp_type_data": "float",
+                "output_filter": {
+                    "clear_text": [
+                        " ",
+                        "kilogram",
+                        "gram",
+                        "Kg"
+                    ]
+                },
+                "output_condition": {
+                    "fold": {
+                        " Gr": 1,
+                        " Kg": 1000
+                     }
+                }
+            },
+            "description": {
+                "selector": ".col-lg-12:eq(6)",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+               "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": ".panel-body > .col-lg-12 > a > img",
+                "read": "attr:src"
+                
+            },
+            "cat_1": {
+                "selector": ".page-title > ul > li:eq(2) > a",
+                "index": 0,
+                "read": "content"
+            },
+            "cat_2": {
+                "selector": ".page-title > ul > li:eq(3) > a",
+                "index": 0,
+                "read": "content"
+            },
+            "cat_3": {
+                "selector": ".page-title > ul > li:eq(4) > a",
+                "index": 0,
+                "read": "content"
+            },
+            "sold": {
+                "selector": ".page-title > ul > li:eq(3) > a",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".page-title > ul > li:eq(4) > a",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "thumbnails": {
+                        "selector": "#imgsingle > img",
+                        "read": "attr:src",
+                            "output_filter": {
+                                "start_with": "https://www.bukuilmu.com"
+                  
+                        }                                                           
+                    }
+                }
+            ]
+        }
+    }
+}

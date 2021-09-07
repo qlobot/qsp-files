@@ -1,0 +1,121 @@
+{
+    "name": "SidoAyuStore",
+    "base_url": [
+        "https://www.sidoayustore.com",
+        "https://sidoayustore.com"
+
+     ],
+    "update_date": "2017-03-19",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": ".lay_2545b_350",
+            "url": {
+                "selector": "a",
+                "read": "attr:href"
+        },
+            "name": {
+                "selector": ".lay_2545b_350 > a > span",
+                "read": "content"
+            },
+            "thumbnail": {
+                "selector": "[itemprop='image']",
+                "read": "attr:src"
+            },
+            "__alternate": [
+                {
+                   "url": {
+                        "selector": ".product-title-column > a",
+                        "read" : "attr:href" 
+                        }
+                    }
+        ]
+        },
+        "detail": {
+            "name": {
+                "selector": ".lay_2545b_334 > h1",
+                "read": "content"
+            },
+            "price": {
+                "selector": ".style_2545_91 > div > span.fc666666",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ".",
+                        "Rp",
+                        " ",
+                        "<s>",
+                        "</s>"
+                    ]
+                }
+            },
+            "weight": {
+                "selector": ".detail_table > tr:eq(3) > td:eq(1)",
+                "read" : "content",
+                "output_filter" : {
+                    "clear_text" : [
+                        "gr"
+                    ]
+                }
+            },
+            "description": {
+                "selector": "#Deskripsi",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+               "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": ".lay_2545b_346 > img",
+                "read": "attr:src"   
+            },
+            "cat_1": {
+                "selector": ".c_2545b_331 > .fs11",
+                "read": "content"
+            },
+            "cat_2": {
+                "selector": ".c_2545b_345 > span",
+                "read": "content"
+            },
+            "cat_3": {
+                "selector": ".c_2545b_420 > span",
+                "read": "content"
+            },
+            "sold": {
+                "selector": ".c-deflist__value:eq(1)",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".c-deflist__value:eq(2)",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "list": {
+                        "selector": "#imgsingle > img",
+                        "read": "attr:src",
+                            "output_filter": {
+                                "start_with": "https://www.bukuilmu.com"                  
+                        }                                                           
+                    }
+                }
+            ]
+        }
+    }
+}
