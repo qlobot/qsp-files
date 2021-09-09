@@ -1,6 +1,6 @@
 File Qobot Scrap Plugin yang dapat kamu download dan install di Qlobot yang kamu gunakan.
 
-[Download File QSP](https://github.com/qlobot/qlobot-scrap-plugins/blob/main/index-files.md)
+[Download File QSP](./index-files.md)
 
 Support untuk:
 - QloBOT v1
