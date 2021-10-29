@@ -1,0 +1,114 @@
+{
+    "name": "bukuilmu",
+    "base_url": [
+        "https://www.lapakgorden.com/",
+        "https://lapakgorden.com/"
+    ],
+    "update_date": "2017-03-19",
+    "author": "QloBOT Dev Team",
+    "author_url": "https://qlobot.com",
+    "patterns": {
+        "list": {
+            "pagination_url_param": "page=[page]",
+            "selector": "h2",
+            "url": {
+                "selector": "[class*='product-title'] a",
+                "read": "attr:href",
+                "output_filter": {
+                    "start_with": "https://www.lapakgorden.com"
+                }
+        },
+            "name": {
+                "selector": ".product-title-column > a",
+                "read": "content"
+            },
+            "thumbnail": {
+                "selector": "#gallery > li > a > img",
+                "read": "attr:src"
+            },
+            "__alternate": [
+                {
+                   "url": {
+                        "selector": ".product-title-column > a",
+                        "read" : "attr:href" 
+                        }
+                    }
+        ]
+        },
+        "detail": {
+            "name": {
+                "selector": ".product-title > span",
+                "read": "content"
+            },
+            "price": {
+                "selector": "td > .product-price",
+                "read": "content",
+                "output_filter": {
+                    "clear_text": [
+                        ".",
+                        "Rp",
+                        " "
+                    ]
+                }
+            },
+            "weight": {
+                "force_value": "200"
+            },
+            "description": {
+                "selector": "#Deskripsi",
+                "read": "content",
+                "output_filter": {
+                    "replace": {
+                        "<br/>": "\n"
+                    },
+                    "remove_tags": true
+                }
+            },
+            "condition": {
+               "force_value": "Baru"
+            },
+            "thumbnails": {
+                "selector": "#imgsingle > img",
+                "selector": "#gallery > li > a > img",
+                "read": "attr:src",
+                "output_filter": {
+                    "start_with": 
+                    "https://www.lapakgorden.com"
+                }     
+            },
+            "cat_1": {
+                "selector": ".linkmenu > span",
+                "index": 0,
+                "read": "content"
+            },
+            "sold": {
+                "selector": ".c-deflist__value:eq(1)",
+                "read": "content"
+            },
+            "views": {
+                "selector": ".c-deflist__value:eq(2)",
+                "read": "content"
+            },
+            "rating": {
+                "selector": ".c-product-rating__value",
+                "read": "content"
+            },
+            "rating_by": {
+                "selector": ".c-product-rating__count span",
+                "read": "content"
+            },
+            "__alternate": [
+                {
+                    "thumbnails": {
+                        "selector": "#imgsingle > img",
+                        "read": "attr:src",
+                            "output_filter": {
+                                "start_with": "https://www.lapakgorden.com"
+                  
+                        }                                                           
+                    }
+                }
+            ]
+        }
+    }
+}
